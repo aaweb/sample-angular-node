@@ -151,11 +151,12 @@ function createGraph(data) {
   var minX = d3.min(data, xValue);
   var maxX = d3.max(data, xValue);
 
-  // var xScale = d3.scale.linear().range([0, width]); // value -> display
   var xScale = d3.time.scale()
     .domain([new Date(minX), d3.time.day.offset(new Date(maxX), 1)])
     .rangeRound([0, width - margin.left - margin.right]);
-  var yScale = d3.scale.linear().range([height, 0]); // value -> display
+
+  // Pow with exponent 0.5 is equivalent to using sqrt().
+  var yScale = d3.scale.pow().exponent(0.5).range([height, 0]);
 
   /*
    * Setup axes
