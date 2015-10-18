@@ -22,6 +22,26 @@ function createGraph(data) {
     width = 960 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
 
+  /*
+   * Colors
+   */
+  var color = d3.scale.category10();
+
+  /*
+   * Massage incoming data
+   */
+  data.forEach(function(d) {
+    d.timelineDate = new Date(d.created_at).getTime();
+    d.priority = +d.favorite_count + d.retweet_count;
+
+    d.name = d.text;
+    d.icon = 'fa-flash';
+
+    var idForColor = d.retweeted_status ? d.retweeted_status.id : d.id;
+    d.color = color(idForColor);
+  });
+
+  console.dir(data);
 
   /*
    * X/Y mappers Dots
@@ -48,41 +68,26 @@ function createGraph(data) {
   }; // data -> display
 
   /*
-   * Colors
-   */
-  // setup fill color
-  var cValue = function(d) {
-    return d.color;
-  };
-  var color = d3.scale.category10();
-
-  /*
    * Utility
    */
-  var getRandomBoolean = function () {
+  var getRandomBoolean = function() {
     return Math.random() < 0.5;
   };
 
-  var getRandomArbitrary = function (min, max) {
+  var getRandomArbitrary = function(min, max) {
     return Math.random() * (max - min) + min;
   };
 
-  var getRetweetOffset = function (factor) {
+  var getRetweetOffset = function(factor) {
     var outerPadding = 25;
     var innerPadding = 20;
 
     var min = innerPadding;
     var max = getCircleRadiusForTweet(factor) - outerPadding;
-    var randomValue = getRandomArbitrary(innerPadding, max);
+    var randomValue = getRandomArbitrary(min, max);
 
     randomValue = getRandomBoolean() ? randomValue : -randomValue;
     return randomValue;
-    // var random = (Math.sin(Math.random()) - 0.5) * 2; // -1 to 1
-    // var offset = random * getCircleRadiusForTweet(factor);
-
-    // // Apply outer padding
-    // offset = offset > 0 ? offset - outerPadding : offset + outerPadding;
-    // return offset;
   };
 
   var getCircleRadius = function(d) {
@@ -91,7 +96,7 @@ function createGraph(data) {
       return 0;
     }
     // Tweet without retweets
-    if (d.retweet_count == 0) {
+    if (d.retweet_count === 0) {
       return 20;
     }
     // Tweet with retweets. Make radius twice the square size
@@ -104,7 +109,7 @@ function createGraph(data) {
       return 15;
     }
     // Tweet without retweets
-    if (d.retweet_count == 0) {
+    if (d.retweet_count === 0) {
       return 20;
     }
     // Tweet with retweets
@@ -183,22 +188,6 @@ function createGraph(data) {
     .attr('class', 'tooltip')
     .style('opacity', 0);
 
-  /*
-   * Massage incoming data
-   */
-  data.forEach(function(d, i) {
-    d.timelineDate = new Date(d.created_at).getTime();
-    d.priority = +d.favorite_count + d.retweet_count;
-
-    d.name = d.text;
-    d.icon = 'fa-flash';
-
-    var idForColor = d.retweeted_status ? d.retweeted_status.id : d.id;
-    d.color = color(idForColor);
-  });
-
-  console.dir(data);
-
   // don't want dots overlapping axis, so add in buffer to data domain
   xScale.domain([d3.min(data, xValue) - 1, d3.max(data, xValue) + 1]);
   yScale.domain([d3.min(data, yValue) - 1, d3.max(data, yValue) + 1]);
@@ -217,17 +206,19 @@ function createGraph(data) {
     .style('text-anchor', 'end')
     .text('Time');
 
-  // y-axis
-  // svg.append('g')
-  //   .attr('class', 'y axis')
-  //   .call(yAxis)
-  //   .append('text')
-  //   .attr('class', 'label')
-  //   .attr('transform', 'rotate(-90)')
-  //   .attr('y', 6)
-  //   .attr('dy', '.71em')
-  //   .style('text-anchor', 'end')
-  //   .text('Priority');
+  /*
+   * Draw y-axis
+   */
+  svg.append('g')
+    .attr('class', 'y axis')
+    .call(yAxis)
+    .append('text')
+    .attr('class', 'label')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', 6)
+    .attr('dy', '.71em')
+    .style('text-anchor', 'end')
+    .text('Retweets');
 
   /*
    * Draw elements
