@@ -8,7 +8,7 @@ var _ = require('lodash');
 var twitter = new Twit(config.twitter);
 
 var TWEET_COUNT = 20;
-var MAX_COUNT_PER_REQUEST = 15;
+var MAX_COUNT_PER_REQUEST = 100;
 var MAX_WIDTH = 305;
 var OEMBED_URL = 'statuses/oembed';
 var USER_TIMELINE_URL = 'statuses/user_timeline';

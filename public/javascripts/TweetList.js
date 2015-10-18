@@ -89,14 +89,14 @@ app.controller('TweetList', function($scope, $http, $resource, $timeout) {
   $scope.getTweets = function() {
     $scope.maxId = undefined;
     getTweets();
-  }
+  };
 
   /**
    * binded to 'Get More Tweets' button
    */
   $scope.getMoreTweets = function() {
     getTweets(true);
-  }
+  };
 
   init();
 });
