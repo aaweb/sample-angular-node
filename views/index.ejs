@@ -6,47 +6,26 @@
 
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <link rel='stylesheet' href='/stylesheets/TweetList.css' />
-	
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-sanitize.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-	<script src="//platform.twitter.com/widgets.js"></script>
-	<script src="/javascripts/TweetList.js"></script>
-
+  	<link rel='stylesheet' href='/stylesheets/TweetList.css' />
+  	<link rel='stylesheet' href='/stylesheets/graph.css' />
 </head>
 <body>
 
 	<!-- the root element of the view assigned to the TweetList javascript controller-->
 	<div ng-controller="TweetList">
 
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-lg-12">
 				<h1><img id="twitter-logo" src="images/Twitter_logo_white.png" /><%= title %></h1>
 			</div>
-		</div>
+		</div>-->
 
-		<div id="search-container" class="row">
-			<div class="col-lg-3">
+		<div class="row">
+    		<div id="chart">
+    		</div>
+	    </div>
 
-				<!-- this form will trigger the getTweets function in the javascript controller on submit -->
-				<form class="input-group" ng-submit="getTweets()" >
-	  			<span class="input-group-addon">@</span>
-
-					<!-- this text input is binded to a variable in the javascript controller -->
-				  <input type="text" class="form-control" placeholder="TwitterDev" ng-model="username">
-
-					<span class="input-group-btn">
-		        <button class="btn btn-default" type="submit">Get Tweets</button>
-		      </span>
-
-				</form>
-   		</div>
-		</div>
-
-		<div class="row clearfix">
+		<div class="row" ng-if="showList">
 			<div class="col-lg-12">
 
 		    	<div id="tweet-list">
@@ -68,20 +47,19 @@
 		    		</div>
 
 		    	</div>
-
-		  </div>
+			</div>
+		</div>
   	</div>
 
-		<div class="row">
-			<div class="col-lg-12">
-
-				<!-- this button will trigger the getMoreTweets function in the javascript controller -->
-		  	<button type="button" class="load-more-btn btn btn-default" ng-click="getMoreTweets()">Get More Tweets</button>
-
-	  	</div>
-	  </div>
-
-	</div>
-
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-sanitize.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="//platform.twitter.com/widgets.js"></script>
+	<script src="/javascripts/TweetList.js"></script>
+	<script src="/javascripts/Graph.js"></script>
 </body>
 </html>

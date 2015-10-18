@@ -1,0 +1,68 @@
+/*body {
+    font: 11px sans-serif;
+    margin: 0;
+    padding: 0;
+}
+*/
+
+#chart {
+    width:100%;
+    height:100px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.dot {
+    fill-opacity: .8 !important;
+    stroke-opacity: .1 !important;
+    stroke: #000;
+}
+
+/*.dot:hover {
+    fill-opacity: 1.0 !important;
+    stroke-opacity: .4 !important;
+    zoom: 1.5;
+}
+*/
+.tooltip {
+    font-size: 120%;
+    position: absolute;
+    pointer-events: none;
+    /*border: 1px solid gray;*/
+
+    padding: 0px;
+    margin: 0;
+    background-color: white;
+    border-radius: 5px;
+    width: 400px;
+    padding: 10px;
+    background: #F4F4F4;
+    border: 2px solid red;
+}
+
+.fa {
+    display: inline !important;
+    color: white;
+}
+
+.icon {
+    text-align: center;
+}
+
+.tweet-info {
+    margin-top:10px;
+    padding-top:10px;
+    border-top: 1px solid gray;
+    font-weight: bold;
+}
+
+.tweet-info span {
+    font-weight: normal;
+    float:right;
+    font-size: 95%;
+}
