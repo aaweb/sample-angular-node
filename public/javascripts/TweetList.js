@@ -2,14 +2,12 @@ var app = angular.module('Twitter', ['ngResource', 'ngSanitize']);
 
 app.controller('TweetList', function($scope, $http, $resource, $timeout) {
   $scope.showList = false;
+  $scope.cacheMode = true;
 
   /**
    * init controller and set defaults
    */
   function init() {
-
-    // set a default username value
-    $scope.username = "macounffm";
 
     // empty tweet model
     $scope.tweetsResult = [];
@@ -30,9 +28,16 @@ app.controller('TweetList', function($scope, $http, $resource, $timeout) {
       });
     }
 
-    // $scope.getTweets();
-    $scope.getTweetsFromCache();
+    if ($scope.cacheMode) {
+      $scope.getTweetsFromCache();
+    } else {
+      $scope.getTweets();
+    }
   }
+
+  $scope.$watch('cacheMode', function() {
+    init();
+  })
 
   /**
    * requests and processes tweet data from cache file

@@ -138,7 +138,7 @@ router.get('/search', function(req, res) {
   var oEmbedTweets = [], tweets = [],
 
   params = {
-    q: req.query.q, // the user id passed in as part of the route
+    q: req.query.q, // the query string
     result_type: 'recent'
   };
 

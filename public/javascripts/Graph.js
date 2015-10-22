@@ -44,7 +44,7 @@ function createGraph(data) {
   console.dir(data);
 
   /*
-   * X/Y mappers Dots
+   * X/Y mappers
    */
   var yMap = function(d) {
     var retVal = yScale(yValue(d));
@@ -174,7 +174,7 @@ function createGraph(data) {
   /*
    * Add graph to canvas of the webpage
    */
-  var svg = d3.select('#chart').append('svg')
+  var svg = d3.select('#chart').html('').append('svg')
     // .attr('width', '100%')
     // .attr('height', '100%')
     // .attr('viewBox','0 0 '+Math.min(width,height)+' '+Math.min(width,height))
@@ -243,7 +243,11 @@ function createGraph(data) {
     .attr('pointer-events', 'all')
     .on('mouseover', function(d) {
       // Show Tooltip
-      var html = d.name + '<div class="tweet-info">' + d.user.screen_name + '<span>Favorites: ' + d.favorite_count + ' &bull; Retweets: ' + d.retweet_count + '</span></div>';
+      var html = d.name + '<div class="tweet-info">' + d.user.screen_name +
+        '<span>Favorites: ' + d.favorite_count + ' &bull; ' +
+        'Retweets: ' + d.retweet_count + '</span>' +
+        '<div class="time">' + new Date(d.timelineDate) + '</div' +
+        '</div>';
       tooltip.html(html)
         .style('border-color', d.color)
         .style('left', (d3.event.pageX + 5) + 'px')
